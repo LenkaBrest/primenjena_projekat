@@ -347,6 +347,7 @@ int Provera(void)
         for(i=0; i<4; i++)
             niz[i]=0;
      }
+    i = 0;
      return greska;
 }
         
@@ -422,6 +423,8 @@ int mq3(void)
         //WriteUART1dec2string(sirovi2);
         yy=1;
     }
+    else if(sirovi2>150)
+        yy = 2;
     /*if(yy==1)
     {
         RS232_putst("Promasili ste kucu.");
@@ -556,14 +559,15 @@ void main(void)
                             otvori_vrata_skroz();
                             stanje = 5;
                         }
+                        greska = 0;
                         break;
                 case 2: for(broj2=0;broj2<3000;broj2++);
-                        if(mq3()) //ne ispise ni ovo iz if ni ovo iz else????
+                        if(mq3()==1) //ne ispise ni ovo iz if ni ovo iz else????
                         {
                             GLCD_Printf("Pogresili ste kucu.");
                             stanje = 0;
                         }
-                        else
+                        else if(mq3() == 2)
                             stanje = 3;
                         break;
                 case 3: for(broj2=0;broj2<3000;broj2++);
@@ -578,6 +582,7 @@ void main(void)
                             otvori_vrata_skroz();
                             stanje = 5;
                         }
+                        greska = 0;
                         break;
                 case 4: for(broj2=0;broj2<3000;broj2++);
                         if(pir())
